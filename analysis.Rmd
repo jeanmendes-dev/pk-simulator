@@ -1,0 +1,122 @@
+---
+title: "Simulador PK/PD — Perfis de Concentração de Fármacos"
+output: html_document
+date: "2025-11-05"
+---
+
+```{r}
+# Verifique o diretório de trabalho
+getwd()
+```
+
+```{r}
+# R/generate_pk_params.R
+# Gera parâmetros PK para simulação
+
+# Criar pasta data se não existir
+if (!dir.exists("data")) dir.create("data")
+
+# Definir cenários PK
+pk_scenarios <- tibble::tibble(
+  scenario = c("Padrão", "Dose Alta", "CL Baixo"),
+  dose     = c(500, 750, 500),
+  V        = c(50, 50, 50),
+  CL       = c(5, 5, 3),
+  ka       = c(1.0, 1.0, 1.0),
+  time_points = I(list(
+    c(0, 1, 2, 4, 6, 8, 12, 24),
+    c(0, 1, 2, 4, 6, 8, 12, 24, 36),
+    c(0, 0.5, 1, 2, 4, 6, 8, 12, 24)
+  ))
+)
+
+# Converter time_points para string no formato "0,1,2,..."
+pk_scenarios$time_points_str <- sapply(pk_scenarios$time_points, function(x) paste(x, collapse = ","))
+
+# Selecionar apenas colunas finais
+pk_final <- pk_scenarios %>%
+  dplyr::select(scenario, dose, V, CL, ka, time_points = time_points_str)
+
+# Salvar com write.csv2 (usa ; como separador)
+params <- data.frame(
+  dose = 500,
+  V = 50,
+  CL = 5,
+  ka = 1,
+  times = "0,1,2,4,6,8,12,24",
+  stringsAsFactors = FALSE
+)
+
+write.csv2(params, "data/pk_params.csv", row.names = FALSE)
+cat("✅ Arquivo 'data/pk_params.csv' gerado com sucesso!\n")
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+source("pk_models.R")
+
+# Carregar parâmetros
+pk_params <- read.csv("data/pk_params.csv", sep = ";")
+times <- as.numeric(strsplit(pk_params$times, ",")[[1]])
+```
+
+```{r}
+# Simulação PK — Modelo de 1 Compartimento (Oral): Simular concentração
+conc <- pk_1comp_oral(
+  time = times,
+  dose = pk_params$dose,
+  V = pk_params$V,
+  CL = pk_params$CL,
+  ka = pk_params$ka
+)
+
+# Criar data frame
+pk_df <- data.frame(time = times, concentration = conc)
+
+# Plotar
+ggplot(pk_df, aes(x = time, y = concentration)) +
+  geom_line(color = "blue", size = 1) +
+  geom_point(color = "red", size = 2) +
+  labs(
+    title = "Perfil de Concentração Plasmática — Modelo 1 Compartment (Oral)",
+    x = "Tempo (horas)",
+    y = "Concentração (mg/L)"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+library(gt)
+library(dplyr)
+
+pk_df %>%
+  gt() %>%
+  tab_header(title = md("Concentração Plasmática ao Longo do Tempo")) %>%
+  fmt_number(columns = concentration, decimals = 2) %>%
+  tab_options(table.width = pct(100))
+```
+
+```{r}
+# Variar CL e ver impacto
+cl_values <- seq(2, 10, by = 2)
+sens_df <- data.frame()
+
+for (cl in cl_values) {
+  conc_sens <- pk_1comp_oral(times, pk_params$dose, pk_params$V, cl, pk_params$ka)
+  temp_df <- data.frame(time = times, concentration = conc_sens, CL = cl)
+  sens_df <- rbind(sens_df, temp_df)
+}
+
+ggplot(sens_df, aes(x = time, y = concentration, color = factor(CL))) +
+  geom_line(size = 1) +
+  labs(
+    title = "Análise de Sensibilidade — Impacto do Clearance (CL)",
+    x = "Tempo (horas)",
+    y = "Concentração (mg/L)",
+    color = "CL (L/h)"
+  ) +
+  theme_minimal()
+```
+
+
