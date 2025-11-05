@@ -30,7 +30,32 @@ Totalmente **reprodutível, baseado em código aberto e alinhado às boas práti
 
 ---
 
+## 📊 Exemplo de Saída
+
+### Tabela de Demografia
+![Tabela de Demografia](screenshots/demographics_table.png)
+
+### Gráfico de Eventos Adversos
+![Gráfico de Eventos Adversos](screenshots/adverse_events_plot.png)
+
+### Análise de Gravidade dos Eventos
+![Análise de Gravidade](screenshots/severity_table.png)
+
+### Resultado do Teste Estatístico
+![Teste de Fisher](screenshots/fisher_test_result.png)
+
+---
+
+## 🖥️ Aplicativo Interativo (Shiny)
+
+Explore os dados clínicos de forma interativa com nosso aplicativo Shiny.
+
+![App Shiny](screenshots/shiny_app_screenshot.png)
+
+> 🔍 *Clique na imagem acima para ver o demo completo (se disponível).*
 ## ▶️ Como Executar
+
+---
 
 ```r
 # 1. Clone o repositório
