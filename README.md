@@ -1,56 +1,57 @@
 # 🧪 pkpd-simulator  
 **Simulate & Visualize Drug Concentration-Time Profiles for Pharmacokinetic (PK) Analysis**
 
-> Ferramenta em R para simulação e visualização interativa de perfis farmacocinéticos — ideal para farmacêuticas, biofarmacêuticas, CROs e pesquisadores em farmacologia quantitativa.
+> An R-based tool for simulating and interactively visualizing pharmacokinetic profiles — ideal for pharmaceutical and biopharmaceutical companies, CROs, and quantitative pharmacology researchers.
 
 ![R](https://img.shields.io/badge/R-4.4+-276DC3?logo=r)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ---
 
-## 💡 O que é?
+## 💡 What Is It?
 
-Um motor de simulação PK em **R** que permite:
+A PK simulation engine in R that enables users to:
 
-- ✅ Modelar concentração plasmática ao longo do tempo (ex: 1-compartment, oral/IV)
-- ✅ Visualizar perfis com `ggplot2`
-- ✅ Gerar relatórios automáticos via `rmarkdown`
-- ✅ (Opcional) Explorar cenários interativamente com `shiny`
+- ✅ Model plasma concentration over time (e.g., 1-compartment, oral/IV)
+- ✅ Visualize profiles with `ggplot2`
+- ✅ Automatically generate reports using `rmarkdown`
+- ✅ (Optional) Explore scenarios interactively via `shiny`
 
-Totalmente **reprodutível, baseado em código aberto e alinhado às boas práticas de modelagem farmacocinética**.
+Fully reproducible, open-source, and aligned with pharmacokinetic modeling best practices.
 
 ---
 
-## 📦 Tecnologias
+## 📦 Technologies
 
 - **R** (`deSolve`, `ggplot2`, `tidyverse`)
-- **Relatórios**: `rmarkdown`, `gt`
-- **Interatividade**: `shiny` (em desenvolvimento)
-- **Dados**: CSV com parâmetros PK (dose, V, CL, ka)
+- **Reporting**: `rmarkdown`, `gt`
+- **Interactivity**: `shiny`
+- **Data Input**: CSV files containing PK parameters (dose, V, CL, ka)
 
 ---
 
-## 📊 Exemplo de Saída
+## 📊 Example Output
 
-### Perfil de Concentração Plasmática
+### Plasma Concentration Profile
 ![Tabela de Demografia](perfil-concentracao-plasmatica-oral.png)
 
-### Tabela de Concentração Plasmática
+### Plasma Concentration Table
 ![Gráfico de Eventos Adversos](tabela-concentracao-plasmatica-oral.png)
 
-### Análise de Sensibilidade - Impacto do Clearance
+### Sensitivity Analysis — Impact of Clearance
 ![Análise de Gravidade](analise-sensibilidade-clearance-oral.png)
 
 ---
 
-## 🖥️ Aplicativo Interativo (Shiny)
+## 🖥️ Interactive Shiny App
 
-Explore os dados clínicos de forma interativa.
+Explore clinical simulation data interactively.
 
 ![App Shiny](simuladorPK-app-shiny.png)
 
-> 🔍 *Clique na imagem acima para ver o demo completo (se disponível).*
-## ▶️ Como Executar
+> 🔍 *Click the image above to view the full demo (if available).*
+
+## ▶️ How to Run
 
 ---
 
