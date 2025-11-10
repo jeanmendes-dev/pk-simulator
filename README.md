@@ -1,4 +1,4 @@
-# 🧪 pkpd-simulator  
+# 🧪 pk-simulator  
 **Simulate & Visualize Drug Concentration-Time Profiles for Pharmacokinetic (PK) Analysis**
 
 > An R-based tool for simulating and interactively visualizing pharmacokinetic profiles — ideal for pharmaceutical and biopharmaceutical companies, CROs, and quantitative pharmacology researchers.
