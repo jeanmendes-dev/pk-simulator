@@ -6,6 +6,8 @@
 ![R](https://img.shields.io/badge/R-4.4+-276DC3?logo=r)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
+➡️ **See the app in production:** [https://jeanmendes-dev.shinyapps.io/pk-simulator/](https://jeanmendes-dev.shinyapps.io/pk-simulator/)
+
 ---
 
 ## 💡 What Is It?
